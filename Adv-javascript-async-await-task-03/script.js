@@ -1,18 +1,24 @@
 //Fetch all countries details
 async function fetchCountriesDetails() {
-    let countries = await fetch("https://restcountries.eu/rest/v2/all");
-    let countriesJson = await countries.json();
-    console.log(countriesJson);
-    displayCountryDataInCards(countriesJson);
+    try {
+        let countries = await fetch("https://restcountries.eu/rest/v2/all");
+        let countriesJson = await countries.json();
+        displayCountryDataInCards(countriesJson);
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 //Fetch weather details for a particular state ,country 
 async function fetchWeatherDetails(state, country) {
-    let weatherApiId = '444c619e09f729569614aeca5949eb2f';
-    let weatherDetails = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${state},${country}&appid=${weatherApiId}`);
-    let weatherDetailsJson = await weatherDetails.json();
-    console.log(weatherDetailsJson);
-    displayWeatherDetailsInModal(weatherDetailsJson, country);
+    try {
+        let weatherApiId = '444c619e09f729569614aeca5949eb2f';
+        let weatherDetails = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${state},${country}&appid=${weatherApiId}`);
+        let weatherDetailsJson = await weatherDetails.json();
+        displayWeatherDetailsInModal(weatherDetailsJson, country);
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 //Creating a dom element with properties elem, class,name and id. 
@@ -111,12 +117,12 @@ function displayWeatherDetailsInModal(weatherDetails, country) {
 }
 
 //Convert temperatur from kelvin to celsius.
-function converTempFromKelvinToCelsius(tempInKelvin) {
+function convertTempFromKelvinToCelsius(tempInKelvin) {
     return (tempInKelvin - 273).toFixed(2);
 }
 
 //Clear modal data and close modal.
-function clearAndCloseModal() {
+function removeAndCloseModal() {
     document.querySelector('.modal-container').remove();
 }
 
